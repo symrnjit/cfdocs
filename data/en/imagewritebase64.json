@@ -4,7 +4,7 @@
 	"syntax":"imageWriteBase64(name, destination, format [, inHTMLFormat] [, overwrite])",
 	"member":"someImage.writeBase64(destination, format [, inHTMLFormat] [, overwrite])",
 	"returns":"void",
-	"related":[],
+	"related":["cfimage", "ImageReadBase64", "IsImageFile"],
 	"description":" Writes Base64 images to the specified filename and destination.",
 	"params": [
 		{"name":"name","description":"The image on which this operation is performed.","required":true,"default":"","type":"string","values":[]},
@@ -16,7 +16,7 @@
 	],
 	"engines": {
 		"coldfusion": {"minimum_version":"8", "notes":"", "docs":"https://helpx.adobe.com/coldfusion/cfml-reference/coldfusion-functions/functions-h-im/imagewritebase64.html"},
-		"lucee": {"minimum_version":"4.5", "notes":"", "docs":"http://docs.lucee.org/reference/functions/imagewritebase64.html"},
+		"lucee": {"minimum_version":"4.5", "notes":"", "docs":"https://docs.lucee.org/reference/functions/imagewritebase64.html"},
 		"railo": {"minimum_version":"", "notes":"", "docs":"http://railodocs.org/index.cfm/function/imagewritebase64"},
 		"openbd": {"minimum_version":"", "notes":"", "docs":"http://openbd.org/manual/?/function/imagewritebase64"}
 	},

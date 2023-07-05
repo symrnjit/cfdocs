@@ -26,14 +26,14 @@ angular.module('code.editor', [])
 	'		<div class="split-pane vertical-percent">'+
 	'		    <div class="split-pane-component" id="left-component">'+
 	'		        <div class="decoration">'+
-	'					<form id="form-{{id}}" target="results-{{id}}" method="post" enctype="multipart/form-data" class="code-form">'+
-	'						<input type="hidden" name="setupcode" id="setupcode" value="{{setupCode}}"/>'+
-	'						<input type="hidden" name="code" id="code" value="{{code}}"/>'+
-	'						<input type="hidden" name="postcode" id="postcode" value="{{postcode}}"/>'+
-	'						<input type="hidden" name="key" id="key" value="{{id}}'+ uid +'"/>'+
-	'						<input type="hidden" name="asserts" id="asserts" value="{{asserts}}"/>'+
+	'				<form id="form-{{id}}" target="results-{{id}}" method="post" enctype="multipart/form-data" class="code-form">'+
+	'					<input type="hidden" name="setupcode" id="setupcode" value="{{setupCode}}"/>'+
+	'					<input type="hidden" name="code" id="code" value="{{code}}"/>'+
+	'					<input type="hidden" name="postcode" id="postcode" value="{{postcode}}"/>'+
+	'					<input type="hidden" name="key" id="key" value="{{id}}'+ uid +'"/>'+
+	'					<input type="hidden" name="asserts" id="asserts" value="{{asserts}}"/>'+
 	'			        </form>'+
-	'					<div class="code-editor"></div>'+
+	'				<div class="code-editor"></div>'+
 	'		        </div>'+
 	'		    </div>'+
 	'		    <div class="split-pane-divider my-divider"></div>'+
@@ -50,11 +50,11 @@ angular.module('code.editor', [])
 	'	</div>'+
 	'	</div>'+
 	'	<div class="editor-toolbar">'+
-	'	    <button class="submit-code btn {{runBtnClass || \'btn-primary\'}} pull-left">Run Code <i class="icon-play icon-white"></i></button>'+
+	'	    	<button class="submit-code btn {{runBtnClass || \'btn-primary\'}} pull-left">Run Code <i class="icon-play icon-white"></i></button>'+
 	'		<span class="code-editor-help text-muted" style="font-size:small;">&nbsp;Ctl+Enter to Run, Ctl+S to save Gist.</span>'+
 	'		<span class="code-editor-message"></span>'+
-	'	    <button class="toggle-fullscreen btn {{fullscreenbtnclass}} pull-right" ng-click="toggleFullscreen()"> <i class="icon-resize-full"></i></button>'+
-	'	    <button class="editor-options btn btn-default {{optionsbtnclass}} pull-right"> <i class="icon-gear"></i></button>'+
+	'	    	<button class="toggle-fullscreen btn {{fullscreenbtnclass}} pull-right" ng-click="toggleFullscreen()"> <i class="icon-resize-full"></i></button>'+
+	'	    	<button class="editor-options btn btn-default {{optionsbtnclass}} pull-right"> <i class="icon-gear"></i></button>'+
 	'		<span ng-hide="showResults == false || showResults == 0" class="alert alert-info pull-right" style="padding: 5px;margin: 0px 3px 0px 3px;display: inline-block;">Current Engine: <span class="display-engine"></span></span>'+
 	'		<div class="modal fade" style="display:none;" tabindex="-1" role="dialog">'+
 	'		  <div class="modal-dialog">'+
@@ -103,15 +103,17 @@ angular.module('code.editor', [])
 	'		           </optgroup>'+
 	'		         </select>'+
 	'		        </div>'+
-	'				<label class="control-label">Change CFML Engine</label>'+
+	'			<label class="control-label">Change CFML Engine</label>'+
 	'		        <div>'+
 	'		         <select id="engine" class="form-control">'+
-	'		             <option value="lucee5">Lucee 5.LATEST</option>'+
-	'		             <option value="lucee">Lucee 4.5.LATEST</option>'+
-	'		             <option value="railo">Railo 4.2</option>'+
-	'				     <option value="acf2016">Adobe ColdFusion 2016</option>'+
-	'				     <option value="acf11">Adobe ColdFusion 11</option>'+
-	'		             <option value="acf">Adobe ColdFusion 10</option>'+
+	'		             	<option value="lucee5">Lucee 5.LATEST</option>'+
+	'		             	<option value="lucee">Lucee 4.5.LATEST</option>'+
+	'		             	<option value="railo">Railo 4.2</option>'+
+	'						<option value="acf2021">Adobe ColdFusion 2021</option>'+
+	'						<option value="acf2018">Adobe ColdFusion 2018</option>'+
+	'						<option value="acf2016">Adobe ColdFusion 2016</option>'+
+	'						<option value="acf11">Adobe ColdFusion 11</option>'+
+	'		             	<option value="acf">Adobe ColdFusion 10</option>'+
 	'		         </select>'+
 	'		        </div>'+
 	'		      </div>'+
@@ -160,7 +162,7 @@ angular.module('code.editor', [])
 		// 	var elementText  = tElement.text();
 		// 	tAttrs.code = elementText || tAttrs.code;
 
-		// 	// Inject the rendered template html into the template element (tElement)
+		// 	// Inject the rendered template HTML into the template element (tElement)
 		// 	tElement.html(editorTemplate);
 
 		// 	// The return of a compile function is a link function (containing the compiled "scope") which Angular will fire
@@ -173,7 +175,7 @@ angular.module('code.editor', [])
 				scope.setupCodeGist = attrs.setupCodeGist;
 				scope.asserts = attrs.asserts;
 				scope.fullscreen = attrs.fullscreen;
-				scope.engines = {'acf2016':'Adobe ColdFusion 2016','acf11':'Adobe ColdFusion 11', 'acf':'Adobe ColdFusion 10', 'railo':'Railo 4.2', 'lucee':'Lucee 4.5', 'lucee5':'Lucee 5', 'lucee5.0.0.45':'Lucee 5.0.0.45'};
+				scope.engines = {'acf2021':'Adobe ColdFusion 2021','acf2018':'Adobe ColdFusion 2018','acf2016':'Adobe ColdFusion 2016','acf11':'Adobe ColdFusion 11', 'acf':'Adobe ColdFusion 10', 'railo':'Railo 4.2', 'lucee':'Lucee 4.5', 'lucee5':'Lucee 5', 'lucee5.0.0.45':'Lucee 5.0.0.45'};
 				scope.engine = attrs.engine || 'lucee';
 				scope.basepath = attrs.basepath || '/gist/';
 
@@ -206,12 +208,14 @@ angular.module('code.editor', [])
 					showResults = typeof attrs.showResults !== 'undefined' ? attrs.showResults === "true" || attrs.showResults === "1" : true,
                     urlPool = {
                     	"railo" : [ "https://railo-sbx.trycf.com/getremote.cfm" ],
-        			    "lucee" : [ "https://lucee4-sbx.trycf.com/lucee4/getremote.cfm" ],
-        			    "lucee5" : [ "https://lucee5-sbx.trycf.com/lucee5/getremote.cfm" ],
-        			    "lucee5.0.0.45" : [ "https://lucee5-sbx.trycf.com/lucee5/getremote.cfm" ],
-                    	"acf" 	: [ "https://acf10-sbx.trycf.com/cfusion/getremote.cfm" ],
+				    	"lucee" : [ "https://lucee4-sbx.trycf.com/lucee4/getremote.cfm" ],
+				    	"lucee5" : [ "https://lucee5-sbx.trycf.com/lucee5/getremote.cfm" ],
+				    	"lucee5.0.0.45" : [ "https://lucee5-sbx.trycf.com/lucee5/getremote.cfm" ],
+		                "acf" : [ "https://acf10-sbx.trycf.com/cfusion/getremote.cfm" ],
 						"acf11" : [ "https://acf11-sbx.trycf.com/cfusion/getremote.cfm" ],
-						"acf2016" : [ "https://acf12-sbx.trycf.com/getremote.cfm" ]
+						"acf2016" : [ "https://acf12-sbx.trycf.com/getremote.cfm" ],
+						"acf2018" : [ "https://acf13-sbx.trycf.com/getremote.cfm" ],
+						"acf2021" : [ "https://acf14-sbx.trycf.com/getremote.cfm" ]
                     },
                     url = attrs.url || urlPool[scope.engine][Math.floor(Math.random()*urlPool[scope.engine].length)];
 
@@ -238,8 +242,7 @@ angular.module('code.editor', [])
 				          m.snippets = snippetManager.parseSnippetFile(m.snippetText);
 				          snippetManager.register(m.snippets, m.scope);
 				        }
-				   	});
-
+				});
 			    });
 
 			    // Custom ACE editor key bindings
@@ -297,13 +300,12 @@ angular.module('code.editor', [])
 				aceEditor.on('change',function(e){
 					// When the scope changes, we need to update the form field and the
 					// ace editor manually because the bidirectional binding doesn't
-					// play well with unsafe html
+					// play well with unsafe HTML
 
 					scope.code = session.getValue();
 					$('#code',codeForm).val(scope.code);
 
 					$('#'+attrs.fieldname).val(scope.code);
-
 				});
 
 				// Enable split pane
@@ -371,7 +373,6 @@ angular.module('code.editor', [])
 					codeForm.submit();
 
 					element.find('.results-div div h1').fadeTo( 2500, 0.2 );
-
 				});
 
 				resultsWrapper.on('mouseover',function(){
@@ -453,16 +454,16 @@ angular.module('code.editor', [])
 				// }
 				function loadGist( gistId ){
 					return $.ajax({
-				        url: 'https://api.github.com/gists/'+gistId,
-				        type: 'GET',
-				        dataType: 'json'
-				      })
-				      .success( function( response ) {
-				        return response.files.content;
-				      })
-				      .error( function(e) {
-				        console.warn("gist save error", e);
-				      });
+						url: 'https://api.github.com/gists/'+gistId,
+						type: 'GET',
+						dataType: 'json'
+				      	})
+				      	.success( function( response ) {
+				        	return response.files.content;
+				      	})
+				      	.error( function(e) {
+				        	console.warn("gist save error", e);
+				      	});
 				}
 				// This fires when the results pane is updated with the response
 				// back from the server.
@@ -511,7 +512,7 @@ angular.module('code.editor', [])
 									html = '<div class="alert alert-warning">'+
 											data.html +
 											'</div>';
-								// runtime error occured when running user's code
+								// runtime error occurred when running user's code
 								}else{
 								  	html = '<div class="alert alert-danger"><strong><i class="icon-bug"></i> Error:</strong><br/>'+
 											data.error +
@@ -562,9 +563,7 @@ angular.module('code.editor', [])
 							if( asserts.length  == 0 || !data.hasfailedtest ){
 								resultsDiv.hide();
 								resultsFrame.show();
-
 							}else{
-
 								if( typeof data !== 'object' ) {
 									data = $.parseJSON( data );
 								}
@@ -611,7 +610,6 @@ angular.module('code.editor', [])
 
 				/* UTILITY FUNCTIONS */
 				function toggleFullscreen(){
-
 					element.find( '.editor-container' ).toggleClass( 'fullscreen' );
 					element.find( '.toggle-fullscreen i' ).toggleClass( 'icon-resize-full' ).toggleClass( 'icon-resize-small' );
 

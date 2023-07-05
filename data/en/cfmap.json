@@ -144,7 +144,7 @@
 		},
 		{
 			"name": "typecontrol",
-			"description": "What type of typecontrol to provide. Basic inclueds \"map, satellite, hybrid\" and Advanced includes \"map, satellite, hybrid, earth, terrain\"",
+			"description": "What type of typecontrol to provide. Basic includes \"map, satellite, hybrid\" and Advanced includes \"map, satellite, hybrid, earth, terrain\"",
 			"required": false,
 			"default": "",
 			"type": "string",
@@ -192,7 +192,7 @@
 		},
 		{
 			"name": "markerWindowContent",
-			"description": "Static inner html markup to be displayed in the infowindow opened when the marker is clicked. This is mutually exclusive with the markerbind attribute",
+			"description": "Static inner HTML markup to be displayed in the infowindow opened when the marker is clicked. This is mutually exclusive with the markerbind attribute",
 			"required": false,
 			"default": "",
 			"type": "string",

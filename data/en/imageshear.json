@@ -4,7 +4,7 @@
 	"syntax":"imageShear(name, shear [, direction] [, interpolation])",
 	"member":"someImage.shear(shear [, direction] [, interpolation])",
 	"returns":"void",
-	"related":[],
+	"related":["ImageSetAntialiasing", "ImageShearDrawingAxis", "IsImageFile"],
 	"description":" Shears an image either horizontally or vertically.",
 	"params": [
 		{"name":"name","description":"The image on which this operation is performed.","required":true,"default":"","type":"string","values":[]},
@@ -15,7 +15,7 @@
 	],
 	"engines": {
 		"coldfusion": {"minimum_version":"8", "notes":"", "docs":"https://helpx.adobe.com/coldfusion/cfml-reference/coldfusion-functions/functions-h-im/imageshear.html"},
-		"lucee": {"minimum_version":"4.5", "notes":"", "docs":"http://docs.lucee.org/reference/functions/imageshear.html"},
+		"lucee": {"minimum_version":"4.5", "notes":"", "docs":"https://docs.lucee.org/reference/functions/imageshear.html"},
 		"railo": {"minimum_version":"", "notes":"", "docs":"http://railodocs.org/index.cfm/function/imageshear"}
 	},
 	"links": [

@@ -6,21 +6,36 @@
 	<cfif NOT FindNoCase("cfdocs.org", cgi.server_name)><meta name="ROBOTS" content="NOINDEX, NOFOLLOW"></cfif>
 	<cfparam name="request.title" default="">
 	<cfparam name="request.assetBaseURL" default="/assets/">
+	<cfparam name="request.description" default="CFML Documentation Reference: #request.title#">
+	<cfparam name="request.ogname" default="">
 	<title><cfoutput>#ReReplace(request.title, "[^a-zA-Z0-9 ._-]", "", "ALL")# CFML Documentation</cfoutput></title>
-	<link href="https://netdna.bootstrapcdn.com/bootswatch/3.3.7/lumen/bootstrap.min.css" rel="stylesheet">
+	<link href="https://cdn.jsdelivr.net/npm/bootswatch@3.4.1/lumen/bootstrap.min.css" rel="stylesheet">
 	<cfparam name="request.hasExamples" default="false">
-	<cfif request.hasExamples><link rel="stylesheet" href="https://cdn.rawgit.com/foundeo/cfdocs/3da43f03663c57f499cf2de82ef82d4f74fe04cd/assets/vendor/google/code-prettify/theme-monokai.css" /></cfif>
+	<cfif request.hasExamples><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/color-themes-for-google-code-prettify@2.0.4/dist/themes/tomorrow-night-bright.min.css" /></cfif>
 	<cfoutput><link href="#request.assetBaseURL#style.css" rel="stylesheet"></cfoutput>
 	<link rel="search" type="application/opensearchdescription+xml" title="Search CFML Documentation" href="/opensearch.xml" />
-	<!--[if lt IE 9]>
-	<script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.6.2/html5shiv.js"></script>
-	<script src="//cdnjs.cloudflare.com/ajax/libs/respond.js/1.3.0/respond.min.js"></script>
-	<![endif]-->
+	<cfoutput>
+		<meta name="description" content="#encodeForHTMLAttribute(request.description)#">
+		<meta property="og:title" content="#ReReplace(request.title, "[^a-zA-Z0-9 ._-]", "", "ALL")# CFML Documentation">
+		<meta property="og:site_name" content="CF Docs">
+		<meta property="og:url" content="https://cfdocs.org/#EncodeForHTMLAttribute(lcase(request.ogname))#">
+		<meta property="og:description" content="#EncodeForHTMLAttribute(request.description)#">
+		<meta property="og:type" content="website">
+		<meta property="og:image" content="https://cfdocs.org/openimage.cfm?name=#EncodeForHTMLAttribute(lcase(request.ogname))#">
+		<meta property="og:image:alt" content="#EncodeForHTMLAttribute(request.description)#" />
+		<meta property="og:image:width" content="512" />
+		<meta property="og:image:height" content="256" />
+		
+		<meta name="twitter:image:src" content="https://cfdocs.org/openimage.cfm?name=#EncodeForHTMLAttribute(lcase(request.ogname))#" />
+		<meta name="twitter:site" content="CF Docs" />
+		<meta name="twitter:card" content="summary_large_image" />
+		<meta name="twitter:title" content="#ReReplace(request.title, "[^a-zA-Z0-9 ._-]", "", "ALL")# CFML Documentation" />
+		<meta name="twitter:description" content="#EncodeForHTMLAttribute(request.description)#" />
+</cfoutput>
 </head>
 <body>
 	<nav class="navbar navbar-default navbar-fixed-top">
 		<cfset listCategories = listSort(StructKeyList(application.categories),"text")>
-		<cfset listGuides = listSort(StructKeyList(application.guides),"text")>
 		<div class="container">
 			<div class="navbar-header">
 				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -58,12 +73,17 @@
 						</ul>
 					</li>
 					<li class="dropdown">
-						<a href="##" class="dropdown-toggle" data-toggle="dropdown">Other <b class="caret"></b></a>
+						<a href="##" class="dropdown-toggle" data-toggle="dropdown">Guides <b class="caret"></b></a>
 						<ul class="dropdown-menu">
 							<li><a href="#linkTo("application-cfc")#">Application.cfc</a></li>
-						<cfloop list="#listGuides#" index="guide">
+						<cfloop collection="#application.guides#" item="guide">
 							<li><a href="#linkTo(guide)#">#application.guides[guide]#</a></li>
 						</cfloop>
+						</ul>
+					</li>
+					<li class="dropdown">
+						<a href="##" class="dropdown-toggle" data-toggle="dropdown">Recently Viewed <b class="caret"></b></a>
+						<ul class="dropdown-menu" id="recentitems">
 						</ul>
 					</li>
 					<li class="dropdown">
@@ -74,6 +94,7 @@
 							<li><a href="/reports/missing-descriptions.cfm">Missing Descriptions</a></li>
 							<li><a href="/reports/missing-examples.cfm">Missing Examples</a></li>
 							<li><a href="/reports/missing-related.cfm">Missing Related Links</a></li>--->
+							<li><a href="/utilities/json/">Add an Example</a></li>
 							<li><a href="https://github.com/foundeo/cfdocs/issues">More...</a></li>
 						</ul>
 					</li>
@@ -81,17 +102,20 @@
 				</ul>
 				<form class="navbar-form navbar-left hidden-sm" id="search">
 					<div class="form-group">
-						<input type="text" placeholder="Tag or Function..." id="lookup-box" class="form-control">
+						<div class="input-group">
+							<input type="text" style="width:100%" placeholder="Tag or Function..." id="lookup-box" class="form-control">
+							<div class="input-group-btn">
+								<button type="submit" class="btn btn-primary" style="    margin-top: -4px;">Go</button>
+							</div>
+						</div>
 					</div>
-					<button type="submit" class="btn btn-primary">Go</button>
 				</form>
-				<ul class="nav navbar-nav navbar-right hidden-sm">
-					<li><a href="https://foundeo.com/" id="foundeo"><img src="/assets/img/foundeo.png"></a></li>
-				</ul>
+				<a href="https://foundeo.com/" class="visible-md visible-lg" id="foundeo"><img src="/assets/img/foundeo.png"></a>
 			</div><!--/.navbar-collapse -->
 		</div>
 	</nav>
 
+	
 	<cfoutput>#request.content#</cfoutput>
 
 	<hr>
@@ -104,13 +128,12 @@
 </div> <!-- /container -->
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.5/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/typeahead.js/0.11.1/typeahead.bundle.min.js"></script>
 <cfoutput><script src="#request.assetBaseURL#script.js"></script></cfoutput>
 <cfparam name="request.gitFilePath" default="/">
-<cfoutput><a href="https://github.com/foundeo/cfdocs#request.gitFilePath#" rel="nofollow" class="visible-lg visible-md"><img id="forkme" src="https://cdn.rawgit.com/foundeo/cfdocs/88847869f4bf61a96185fe01290165b00a2bf4e1/assets/img/fork.png" alt="Fork me on GitHub"></a></cfoutput>
-<cfif request.hasExamples><script src="https://cdn.rawgit.com/foundeo/cfdocs/3da43f03663c57f499cf2de82ef82d4f74fe04cd/assets/vendor/google/code-prettify/prettify.js"></script></cfif>
-
+<cfoutput><a href="https://github.com/foundeo/cfdocs#request.gitFilePath#" rel="nofollow" class="visible-lg visible-md"><span id="forkme">Fork me on GitHub</span></a></cfoutput>
+<cfif request.hasExamples><script src="https://cdn.jsdelivr.net/npm/code-prettify@0.1.0/loader/prettify.js"></script></cfif>
 </body>
 </html>
 </cfif>
